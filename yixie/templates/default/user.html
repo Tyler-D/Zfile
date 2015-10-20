@@ -1,0 +1,77 @@
+$def with(resp)
+$var title: yixie-网盘
+$var cssfiles: static/default/puerh/css/puerh.css static/default/puerh/css/font.css static/default/puerh/css/grid.css static/default/css/common.css static/default/css/user.css
+$var jsfiles: static/default/puerh/js/jquery-1.9.1.min.js static/default/puerh/js/bootstrap.js static/default/puerh/js/puerh.js static/default/js/angular-1.0.1.min.js static/default/js/controller/quota.js static/default/js/controller/user.js static/default/js/controller/account.js static/default/js/crumbs.js static/default/js/user.js
+$var userlevel: $resp['userlevel']
+
+    <div class="container">
+        <div class="clearfix">
+            <div class="w-filter " >
+                <span>用户管理</span>
+                <!-- Button to trigger modal -->
+                <div class="pull-right">
+                    <small><a href="#add-user" data-toggle="modal">添加用户</a></small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div ng-controller="user_controller" class="grid grid-20">
+            <div id="all-list" class="section">
+                <ol id="users">
+                    <li class="bar clearfix">
+                        <ul class="attrs">
+                            <li class="attr name">用户名</li>
+                            <li class="attr state">状态</li>
+                            <li class="attr ops">操作</li>
+                            <li class="attr quota">容量</li>
+                            <li class="attr file">文件数</li>
+                            <li class="attr rtime">注册时间</li>
+                        </ul>
+                    </li>
+                    <li ng-repeat="u in user.list" class="user clearfix">
+                        <ul class="attrs">
+                            <li class="attr name"><a href="/user/u?id={{u.id}}">{{u.name}}</a></li>
+                            <li class="attr state">{{u.state}}</li>
+                            <li class="attr ops"><span><a ng-show="'未激活'==u.state"
+                                    ng-click="user_active(u.id)">激活</a></span><span><a
+                                    ng-click="user_remove(u.id)">删除</a></span>
+                                    <span><a ng-click="user_reset(u.id)">重置密码</a></span></li>
+                            <li class="attr quota">{{u.used}}/{{u.total}}</li>
+                            <li class="attr file">{{u.file_num}}</li>
+                            <li class="attr rtime">{{u.create_time}}</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+            <div class="pagenav clearfix">
+                <a ng-show="user.previous" ng-click="user_page(user.previous)" class="pagenav-cell">上一页</a>
+                <span class="pagenav-cell pagenav-cell-current">{{user.current}}</span>
+                <a ng-show="user.next" ng-click="user_page(user.next)" class="pagenav-cell pagenav-cell-next">下一页</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="add-user" class="modal hide fade">
+        <div class="modal-title">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>添加用户</h3>
+        </div>
+        <div class="modal-content">
+            <form action="" method="post" id="user-form">
+                <div class="input-wrapper">
+                    <label>用户名：</label>
+                    <input type="text" class="input input-large" placeholder="用户名" name="name">
+                </div>
+                <div class="input-wrapper">
+                    <label>邮箱：</label>
+                    <input type="text" class="input input-large" placeholder="邮箱" name="email">
+                </div>
+                <div class="input-wrapper">
+                    <input id="user-form-submit" value="添加" class="input button input-large btn" type="submit">
+                </div>
+
+            </form>
+        </div>
+    </div>

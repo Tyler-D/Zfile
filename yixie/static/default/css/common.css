@@ -1,0 +1,49 @@
+/* 通用的class属性 */
+.pagenav h1 a:hover{text-decoration:none;}
+.pagenav h1 span{margin-left: 10px; font-size: 12px;}
+.input-wrapper label {width: 70px;}
+.input-wrapper .btn {margin-left: 80px;}
+
+/**/
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    margin: 0px auto -40px;
+}
+
+#main {
+    background: url('../img/banner_bg.jpg') repeat-x scroll 0% 0% transparent;
+    min-height: 100%;
+}
+
+.w-filter {
+    font-size: 16px;
+    padding: 5px 0px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #FF7F00;
+}
+
+/**/
+.copyright {
+    padding-top: 15px;
+    margin-top: 30px;
+    padding-bottom: 30px;
+    border-top: 1px solid #F8F8F8;
+    text-align: center;
+}
+
+/* 表单 */
+.input-wrapper, .button-wrapper, .signin-misc-wrapper, .weibo-signup-wrapper {
+    margin-top: 18px;
+}
+.input-captcha {
+    padding: 3px 5px;
+    box-sizing: border-box;
+    height: 32px;
+    vertical-align: middle;
+}
+
+.hidden {
+    display: none;
+}
+

@@ -1,0 +1,95 @@
+$def with(resp)
+$var title: yixie-网盘
+$var cssfiles: static/default/puerh/css/puerh.css static/default/puerh/css/font.css static/default/puerh/css/grid.css static/default/css/common.css static/default/css/user.css static/default/css/file.css static/default/css/u.css
+$var jsfiles: static/default/puerh/js/jquery-1.9.1.min.js static/default/puerh/js/bootstrap.js static/default/puerh/js/puerh.js static/default/js/angular-1.0.1.min.js static/default/js/controller/quota.js static/default/js/controller/account.js static/default/js/controller/u.js static/default/js/u.js
+$var userlevel: $resp['userlevel']
+
+    <div class="container">
+        <div class="w-filter clearfix">
+            <span>用户管理</span>><span>用户详细信息</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="grid grid-20">
+            <span class="hidden" id="userid">$resp['userid']</span>
+            <div class="tab sep">
+                <ul class="tab-title clearfix">
+                    <li class="tab-title-item active"><a data-toggle="tab" href="#u">资料</a>
+                    </li>
+                    <li class="tab-title-item"><a data-toggle="tab" href="#quota">存储容量</a>
+                    </li>
+                    <li class="tab-title-item"><a data-toggle="tab" href="#file">所有文件</a>
+                    </li>
+                </ul>
+                <div ng-controller="u_controller" class="tab-content">
+                    <div id="u" class="tab-content-pane active">
+                        <table class="table table-striped">
+                            <tbody>
+                                <div>详细信息</div>
+                                <tr>
+                                    <td class="title">用户名</td>
+                                    <td>{{u.name}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="title">邮箱</td>
+                                    <td>{{u.email}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="title">状态</td>
+                                    <td>{{u.state}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div ng-controller="quota_controller" id="quota" class="tab-content-pane">
+                        <form action="" method="post" id="quota-form">
+                            <div>存储容量</div>
+                            <input type="hidden" name="userid" value="$resp['userid']"/>
+                            <div class="input-wrapper">
+                                <label>使用情况：</label>
+                                <span>{{quota.used}}/{{quota.total}}</span>
+                            </div>
+                            <div class="input-wrapper">
+                                <label>总容量：</label>
+                                <input type="text" class="input input-large" placeholder="容量(B)" name="total" value="">
+                            </div>
+                            <div class="input-wrapper">
+                                <input id="quota-form-submit" value="修改" class="input button input-large btn" type="submit">
+                            </div>
+                        </form>
+                    </div>
+                    <div id="file" class="tab-content-pane">
+                        <div class="">
+                            <div id="all-list" class="section">
+                                <ol id="files">
+                                    <li class="bar clearfix">
+                                        <ul class="attrs">
+                                            <li class="attr name">文件名</li>
+                                            <li class="attr ops">操作</li>
+                                            <li class="attr size">大小</li>
+                                            <li class="attr mtime">修改时间</li>
+                                        </ul>
+                                    </li>
+                                    <li ng-repeat="f in file.list" class="file clearfix">
+                                        <ul class="attrs">
+                                            <li class="attr name">{{f.name}}</li>
+                                            <li class="attr ops"><span><a href="/file/download?path={{f.path}}">下载</a></span><span><a ng-click="file_remove(f.path)">删除</a><span></li>
+                                            <li class="attr size">{{f.size}}</li>
+                                            <li class="attr mtime">{{f.create_time}}</li>
+                                        </ul>
+                                    </li>
+
+                                </ol>
+                            </div>
+                            <div class="pagenav clearfix">
+                                <a ng-show="file.previous" ng-click="file_page(file.previous)" class="pagenav-cell">上一页</a>
+                                <span class="pagenav-cell pagenav-cell-current">{{file.current}}</span>
+                                <a ng-show="file.next" ng-click="file_page(file.next)" class="pagenav-cell pagenav-cell-next">下一页</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

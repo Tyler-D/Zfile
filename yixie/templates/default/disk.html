@@ -1,0 +1,73 @@
+$def with(resp)
+$var title: yixie-网盘
+$var cssfiles: static/default/puerh/css/puerh.css static/default/puerh/css/font.css static/default/puerh/css/grid.css static/default/css/common.css static/default/css/disk.css
+$var jsfiles: static/default/puerh/js/jquery-1.9.1.min.js static/default/puerh/js/bootstrap.js static/default/puerh/js/puerh.js static/default/js/angular-1.0.1.min.js static/default/js/ajaxfileupload.js static/default/js/controller/quota.js static/default/js/controller/disk.js static/default/js/controller/account.js static/default/js/crumbs.js static/default/js/disk.js
+$var userlevel: $resp['userlevel']
+
+    <div class="container">
+        <div class="clearfix">
+            <div class="w-filter " >
+                <span>我的所有文件</span>
+                <!-- Button to trigger modal -->
+                <div class="pull-right">
+                    <small><a href="#upload-file" data-toggle="modal">上传文件</a></small>
+                    <small><a href="#create-folder" data-toggle="modal">新建文件夹</a></small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="grid grid-20">
+            <div ng-controller="disk_controller" id="all-list" class="section">
+                <ol id="files">
+                    <li class="bar clearfix">
+                        <ul class="attrs">
+                            <li class="attr name"><a id="bar_name" ng-click="disk_page('/')">{{disk.label}}</a></li>
+                            <li class="attr ops">操作</li>
+                            <li class="attr size">大小</li>
+                            <li class="attr mtime">修改时间</li>
+                        </ul>
+                    </li>
+                    <li ng-repeat="file in disk.list" class="file clearfix">
+                        <ul class="attrs">
+                            <li class="attr name"><a ng-show="file.isdir"
+                                ng-click="disk_page(file.path)">{{file.server_filename}}<span>/</span></a><a ng-show="!file.isdir" href="/disk/download?path={{file.path}}">{{file.server_filename}}</a></li>
+                            <li class="attr ops"><span><a ng-show="!file.isdir"
+                                    href="/disk/download?path={{file.path}}">下载</a><span><span><a ng-click="disk_remove(file.path)">删除</a><span></li>
+                            <li class="attr size">{{file.size}}</li>
+                            <li class="attr mtime">{{file.server_mtime}}</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div id="upload-file" class="modal hide fade">
+        <div class="modal-title">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>上传文件</h3>
+        </div>
+        <div class="modal-content">
+            <form action="" method="post" id="file-form">
+                <input id="file-form-path" name="path" type="hidden" value=""/>
+                <input name="disk" id="disk" type="file">
+                <input value="上传" id="file-form-submit" class="form-submit button button-green" type="submit">
+            </form>
+        </div>
+    </div>
+
+    <div id="create-folder" class="modal hide fade">
+        <div class="modal-title">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>新建文件夹</h3>
+        </div>
+        <div class="modal-content">
+            <form action="" method="post" id="folder-form">
+                <input id="folder-form-path" name="path" type="hidden" value=""/>
+                <input name="name" id="name" class="input" type="text">
+                <input value="新建" id="folder-form-submit" class="form-submit button button-green" type="submit">
+            </form>
+        </div>
+    </div>

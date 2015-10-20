@@ -1,0 +1,62 @@
+$def with(resp)
+$var title: yixie-网盘
+$var cssfiles: static/default/puerh/css/puerh.css static/default/puerh/css/font.css static/default/puerh/css/grid.css static/default/css/common.css static/default/css/file.css
+$var jsfiles: static/default/puerh/js/jquery-1.9.1.min.js static/default/puerh/js/bootstrap.js static/default/puerh/js/puerh.js static/default/js/angular-1.0.1.min.js static/default/js/controller/quota.js static/default/js/controller/account.js static/default/js/login.js
+$var userlevel: $resp['userlevel']
+
+    <div class="container">
+        <div class="grid grid-12">
+            <figure>
+                <img src="http://lorempixel.com/400/200" alt="">
+                <figcaption>共享相册</figcaption>
+            </figure>
+        </div>
+        <div class="grid grid-8 last">
+            <div class="">
+                <ul class="tab-title clearfix">
+                    <li class="tab-title-item active"><a data-toggle="tab" href="#login">登录</a>
+                    </li>
+                    <li class="tab-title-item"><a data-toggle="tab" href="#register">注册账号</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="login" class="tab-content-pane active">
+                        <form action="" method="post" id="login-form">
+                            <div class="input-wrapper">
+                                <input type="text" class="input input-large" placeholder="用户名" name="account">
+                            </div>
+                            <div class="input-wrapper">
+                                <input type="password" class="input input-large" placeholder="密码" name="password">
+                            </div>
+                            <div class="input-wrapper">
+                                <input id="login-form-submit" value="登录" class="input button input-large" type="submit" id="sign_submit">
+                            </div>
+                        </form>
+                    </div>
+                    <div id="register" class="tab-content-pane">
+                        <form action="" method="post" id="register-form">
+                            <div class="input-wrapper">
+                                <label>用户名：</label>
+                                <input type="text" class="input input-large" placeholder="用户名" name="name">
+                            </div>
+                            <div class="input-wrapper">
+                                <label>邮箱：</label>
+                                <input type="text" class="input input-large" placeholder="邮箱" name="email">
+                            </div>
+                            <div class="input-wrapper">
+                                <label>输入密码：</label>
+                                <input type="password" class="input input-large" placeholder="密码" name="password">
+                            </div>
+                            <div class="input-wrapper">
+                                <label>重复密码：</label>
+                                <input type="password" class="input input-large" placeholder="密码" name="repeat_password">
+                            </div>
+                            <div class="input-wrapper">
+                                <input id="register-form-submit" value="注册" class="input button input-large btn" type="submit">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

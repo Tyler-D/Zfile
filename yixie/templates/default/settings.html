@@ -1,0 +1,62 @@
+$def with(resp)
+$var title: yixie-网盘
+$var cssfiles: static/default/puerh/css/puerh.css static/default/puerh/css/font.css static/default/puerh/css/grid.css static/default/css/common.css static/default/css/user.css
+$var jsfiles: static/default/puerh/js/jquery-1.9.1.min.js static/default/puerh/js/bootstrap.js static/default/puerh/js/puerh.js static/default/js/angular-1.0.1.min.js static/default/js/controller/quota.js static/default/js/controller/disk.js static/default/js/controller/account.js static/default/js/crumbs.js static/default/js/settings.js
+$var userlevel: $resp['userlevel']
+
+    <div class="container">
+        <div class="w-filter clearfix">
+            <span>账户设置</span>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="grid grid-20">
+            <div class="tab sep">
+                <ul class="tab-title clearfix">
+                    <li class="tab-title-item active"><a data-toggle="tab" href="#account">账户</a>
+                    </li>
+                    <li class="tab-title-item"><a data-toggle="tab" href="#password">密码</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div ng-controller="account_controller" id="account" class="tab-content-pane active">
+                        <form action="" method="post" id="account-form">
+                            <div>修改你的帐户基本资料</div>
+                            <div class="input-wrapper">
+                                <label>用户名：</label>
+                                <input type="text" class="input input-large" placeholder="用户名" name="name" value="{{account.name}}">
+                            </div>
+                            <div class="input-wrapper">
+                                <label>邮箱：</label>
+                                <input type="text" class="input input-large" placeholder="邮箱" name="email" value="{{account.email}}">
+                            </div>
+                            <div class="input-wrapper">
+                                <input id="account-form-submit" value="保存" class="input button input-large btn" type="submit">
+                            </div>
+                        </form>
+                    </div>
+                    <div id="password" class="tab-content-pane">
+                        <form action="" method="post" id="password-form">
+                            <div>修改你的登录密码</div>
+                            <div class="input-wrapper">
+                                <label>当前密码：</label>
+                                <input type="password" class="input input-large" placeholder="当前密码" name="password">
+                            </div>
+                            <div class="input-wrapper">
+                                <label>新的密码：</label>
+                                <input type="password" class="input input-large" placeholder="新的密码" name="new_password">
+                            </div>
+                            <div class="input-wrapper">
+                                <label>确认密码：</label>
+                                <input type="password" class="input input-large" placeholder="确认密码" name="repeat_password">
+                            </div>
+                            <div class="input-wrapper">
+                                <input id="password-form-submit" value="保存" class="input button input-large btn" type="submit">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

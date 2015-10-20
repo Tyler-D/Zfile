@@ -1,0 +1,53 @@
+$def with(content)
+<!DOCTYPE html>
+<html ng-app>
+<head>
+    <meta charset='utf-8'>
+    <title>$content.title</title>
+    $if content.cssfiles:
+        $for f in content.cssfiles.split():
+            <link rel="stylesheet" href="/$f" type="text/css" media="screen" charset="utf-8"/>
+    <!--[if lt IE 8]><script src="/static/default/puerh/js/font.js?ver=1"></script><![endif]-->
+</head>
+<body>
+    <div id="topbar">
+        <div class="topbar container"><a href="/disk/" rel="nofollow" ><span>首页</span></a>
+            <div class="topbar-right">
+                <span id="welcome-info" class="topbar-right-text">
+                    欢迎来到yixie，亲爱的
+                    $if int(content.userlevel) >= 0:
+                        <a ng-controller="account_controller" href="/settings/" rel="nofollow">{{account.email}}</a>|
+                        <a ng-controller="quota_controller" href="/disk/" rel="nofollow">容量：{{quota.used}}/{{quota.total}}</a>|
+                        <a href="/account/logout" rel="nofollow">退出</a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="head clearfix sep">
+        <div xmlns:v="http://rdf.data-vocabulary.org/#" class="container">
+            <div class="pull-right">
+                $if int(content.userlevel) >= 0:
+                    <a class="button" href="/disk/">所有文件</a>
+                $if int(content.userlevel) == 1:
+                    <a class="button" href="/file/">文件管理</a>
+                    <a class="button" href="/user/">用户管理</a>
+            </div>
+            <div class="" >
+                <h1 class="logo">
+                    <a href="/disk/">yixie-网盘</a>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    $:content
+    <div class="container">
+        <div class="copyright">
+            <small>Copyright © 2014 yixie. 当前呈现版本beta1</small>
+        </div>
+    </div>
+    $if content.jsfiles:
+        $for f in content.jsfiles.split():
+            <script src="/$f"></script>
+</body>
+</html>

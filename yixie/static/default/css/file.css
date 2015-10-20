@@ -1,0 +1,77 @@
+#files li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+
+#files .bar {
+    padding: 0px 20px;
+    height: 42px;
+    line-height: 42px;
+    border-bottom: 2px solid #D2D2D2;
+    background: none repeat scroll 0% 0% #FFF;
+}
+
+#files .file {
+    padding: 0px 20px;
+    height: 42px;
+    line-height: 42px;
+    border-bottom: 1px solid #EDEDED;
+    background: none repeat scroll 0% 0% #FFF;
+}
+
+#files .attrs .attr {
+    vertical-align: top;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-left: 12px;
+    display: inline-block;
+    overflow: hidden; 
+}
+
+#files .attrs .name {
+    width: 308px;
+    margin-left: 28px;
+    padding-left: 0px;
+}
+
+#files .attrs .user {
+    position: relative;
+    padding-left: 12px;
+    width: 100px;
+    height: 42px;
+    text-align: right;
+}
+
+#files .attrs .ops {
+    position: relative;
+    padding-left: 12px;
+    width: 160px;
+    height: 42px;
+    text-align: right;
+}
+
+#files .attrs .ops a {
+    color: #555;
+}
+
+#files .attrs .ops span {
+    margin: 0 5px;
+}
+
+#files .attrs .size {
+    width: 120px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: right;
+    position: relative;
+}
+
+#files .attrs .mtime {
+    width: 160px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: right;
+    position: relative;
+}

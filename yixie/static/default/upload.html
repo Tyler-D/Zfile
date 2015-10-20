@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+    <meta charset='utf-8'>
+    <title>yixie-网盘</title>
+    <link rel="stylesheet" href="/static/default/puerh/css/puerh.css" type="text/css" media="screen" charset="utf-8"/>
+    <link rel="stylesheet" href="/static/default/puerh/css/font.css" type="text/css" media="screen" charset="utf-8"/>
+    <link rel="stylesheet" href="/static/default/puerh/css/grid.css" type="text/css" media="screen" charset="utf-8"/>
+    <link rel="stylesheet" href="/static/default/css/common.css" type="text/css" media="screen" charset="utf-8"/>
+    <link rel="stylesheet" href="/static/default/css/disk.css" type="text/css" media="screen" charset="utf-8"/>
+    <!--[if lt IE 8]><script src="/static/default/puerh/js/font.js?ver=1"></script><![endif]-->
+</head>
+<body>
+    <div id="upload-file" class="">
+        <div class="modal-title">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>上传文件</h3>
+        </div>
+        <div class="modal-content">
+            <form action="/disk/upload" method="post" id="file-form">
+                <input name="disk" id="disk" type="file">
+                <input value="上传" id="file-form-submit" class="form-submit button button-green" type="submit">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

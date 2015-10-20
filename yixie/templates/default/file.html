@@ -1,0 +1,44 @@
+$def with(resp)
+$var title: yixie-网盘
+$var cssfiles: static/default/puerh/css/puerh.css static/default/puerh/css/font.css static/default/puerh/css/grid.css static/default/css/common.css static/default/css/file.css
+$var jsfiles: static/default/puerh/js/jquery-1.9.1.min.js static/default/puerh/js/bootstrap.js static/default/puerh/js/puerh.js static/default/js/angular-1.0.1.min.js static/default/js/controller/quota.js static/default/js/controller/file.js static/default/js/controller/account.js static/default/js/file.js
+$var userlevel: $resp['userlevel']
+
+    <div class="container">
+        <div class="w-filter clearfix">
+            <span>文件管理</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div ng-controller="file_controller" class="grid grid-20">
+            <div id="all-list" class="section">
+                <ol id="files">
+                    <li class="bar clearfix">
+                        <ul class="attrs">
+                            <li class="attr name">文件名</li>
+                            <li class="attr user">上传用户</li>
+                            <li class="attr ops">操作</li>
+                            <li class="attr size">大小</li>
+                            <li class="attr mtime">修改时间</li>
+                        </ul>
+                    </li>
+                    <li ng-repeat="f in file.list" class="file clearfix">
+                        <ul class="attrs">
+                            <li class="attr name">{{f.name}}</li>
+                            <li class="attr user"><a href="/user/u?id={{f.userid}}">{{f.username}}</a></li>
+                            <li class="attr ops"><span><a href="/file/download?path={{f.path}}">下载</a></span><span><a ng-click="file_remove(f.path)">删除</a><span></li>
+                            <li class="attr size">{{f.size}}</li>
+                            <li class="attr mtime">{{f.create_time}}</li>
+                        </ul>
+                    </li>
+
+                </ol>
+            </div>
+            <div class="pagenav clearfix">
+                <a ng-show="file.previous" ng-click="file_page(file.previous)" class="pagenav-cell">上一页</a>
+                <span class="pagenav-cell pagenav-cell-current">{{file.current}}</span>
+                <a ng-show="file.next" ng-click="file_page(file.next)" class="pagenav-cell pagenav-cell-next">下一页</a>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,5 @@
+$def with(resp)
+<?xml version="1.0"?>
+<RequestNotification-Response>
+    <Status>1</Status>
+</RequestNotification-Response>
