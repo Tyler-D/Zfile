@@ -27,11 +27,16 @@ class BaseHandler(tornado.web.RequestHandler):
         return self.get_secure_cookie("user")
     def check_user(self):
         if not self.current_user:
-            self.redirect("/login")
+            self.redirect("/account/login")
             return 
     def req_params(self):
         return tornado.input()
     def _print(self, page_name, base =None):
+        pass
+    def json(self):
+        self.db.close()
+        return simplejson.dumps(self.resp)
+
 class MyRequestHandler(tornado.web.RequestHandler):
     def check_xsrf_cookie(self):
         pass
@@ -39,7 +44,28 @@ class HomeHandler(BaseHandler):
     def get(self):
         self.check_user()
         self.render("static/index.html")
+#Account Action
+class AccountHandler(BaseHandler):
+    def login(self):
 
+    def login_auth(self):
+
+    def log_out(self):
+
+    def register(self):
+
+#File Action
+class FileHandler(BaseHandler):
+    def __init__(self):
+
+    def index(self):
+
+    def upload(self):
+
+    def download(self):
+
+    def remove(self):
+    
 class Application(tornado.web.Application):
     def __init__(self):
         '''
@@ -51,6 +77,7 @@ class Application(tornado.web.Application):
         '''
         handlers =[
             (r"/", HomeHandler),
+            (r"/account/(.*)", AccountHandler),
         ]
         settings = dict(
             template_path = TEMPLATE_PATH,
