@@ -1,0 +1,31 @@
+{%extends 'main.html'%}
+{%block header%}
+<ul class='nav nav-pills'>
+    <li><a href='/' class='h4 text-primary'>首页</a></li>
+    {%if cookieName=='None' %}
+    <form action='/' method='post' class='form-inline'>
+        <div class='form-group'>
+            <label class='sr-only'>用户名</label>
+            <input type='text' name='username' class='form-control' placeholder='用户名'/>
+        </div>
+        <div class='form-group'>
+            <label class='sr-only'>密码</label>
+            <input type='password' name='password' class='form-control' placeholder='密码'/>
+        </div>
+        <button type='submit' class='btn btn-success'>登录</button>
+        <a href='/register'>无帐号，请点击注册</a>
+    </form>
+    {%else%}
+    <li>欢迎：{{cookieName}}</a></li>
+    <li><a href='/logout' class='h4 text-primary'>注销</a></li>
+    {%end%}
+</ul>
+{%end%}
+{%block content%}
+<ul>
+    {%for i in recent%}
+    <li><a href='/disk' class='text-success h4'>【{{i['username']}}】</a><a href='/files/{{i['username']}}/{{i['filename']}}' class='text-primary h3'>{{i['filename']}}</a></p><p class='text-muted h6'>{{i['last_modify']}}</p></li>
+    <br/>
+    {%end%}
+</ul>
+{%end%}
