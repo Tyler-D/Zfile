@@ -23,6 +23,9 @@ STATIC_PATH = os.path.join(os.path.dirname(__file__), "static")
 
 class BaseHandler(tornado.web.RequestHandler):
     resp = None
+    db = self.application.db
+    template_path = TEMPLATE_PATH
+    static = STATIC_PATH
     def get_curret_user(self):
         return self.get_secure_cookie("user")
     def check_user(self):
@@ -43,13 +46,15 @@ class MyRequestHandler(tornado.web.RequestHandler):
 class HomeHandler(BaseHandler):
     def get(self):
         self.check_user()
-        self.render("static/index.html")
+        self.render("templates/index.html")
 #Account Action
 class AccountHandler(BaseHandler):
     def login(self):
-
+        self.check_user()
+        self.render("templates/disk")
+        self.render("templates/login")
     def login_auth(self):
-
+        
     def log_out(self):
 
     def register(self):
@@ -77,7 +82,7 @@ class Application(tornado.web.Application):
         '''
         handlers =[
             (r"/", HomeHandler),
-            (r"/account/(.*)", AccountHandler),
+            (r"/account/login", AccountHandler.login),
         ]
         settings = dict(
             template_path = TEMPLATE_PATH,
