@@ -4,13 +4,13 @@
     <li><a href='/' class='h4 text-primary'>首页</a></li>
     <li>欢迎：{{cookieName}}</a></li>
     <li><a href='/logout' class='h4 text-primary'>注销</a></li>
+    <li><a href='/upload' class='h4 text-primary'>上传文件</a></li>
 </ul>
 {%end%}
 {%block content%}
 <ul>
     {%for i in files%}
-    <li><a href='/disk' class='text-success h4'>【{{i['username']}}】</a><a href='/files/{{i['username']}}/{{i['filename']}}' class='text-primary h3'>{{i['filename']}}</a></p><p class='text-muted h6'>{{i['last_modify']}}</p></li>
-    <li><a href='/disk/remove' class='h4 text-primary'> Remove</li>
+    <li><a href='/disk' class='text-success h4'>【{{i['username']}}】</a><a href='/download/{{i['filename']}}' class='text-primary h3'>{{i['filename']}}   </a><a href='/remove/{{i['filename']}}' class='text-warning h6'>删除</a></p><p class='text-muted h6'>{{i['last_modify']}}</p></li>
     <br/>
     {%end%}
 </ul>

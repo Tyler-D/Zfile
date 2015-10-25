@@ -98,7 +98,7 @@ class DiskHandler(BaseHandler):
         self.check_user()
         db = self.application.db
         user = self.get_current_user()
-        files = db.query("select * from files order by last_modify limit 10") 
+        files = db.query("select * from files where username = %s order by last_modify",user) 
         self.render("disk.html", files = files, cookieName = user)
 class UploadHandler(BaseHandler):
     def get(self):
@@ -106,7 +106,7 @@ class UploadHandler(BaseHandler):
         <html>
             <head><title>Upload File</title></head>
             <body>
-                <form action='file' enctype="multipart/form-data" method ='post'>
+                <form action='upload' enctype="multipart/form-data" method ='post'>
                 <input type='file' name='file'/><br/>
                 <input type='submit' value ='submit'/>
                 </form>
@@ -124,18 +124,35 @@ class UploadHandler(BaseHandler):
             with open(filepath,'wb') as up:
                 up.write(meta['body'])
             sql = 'insert into files(filename, fileaddress, username)values("%s","%s","%s")'%(filename, filepath, user)
-            db.excute(sql)
+            db.execute(sql)
+        self.redirect("/disk")
 class RemoveHandler(BaseHandler):
-    def get(self):
+    def get(self,input):
         self.check_user()
         user = self.get_current_user()
-        file = self.get_argument('file_name')
-        os.remove(UPLOADED_FILES+"/"+ user + file)
+        file = input
+        user_path = os.path.join(UPLOADED_FILES,user)
+        file_path = os.path.join(user_path, file)
+        os.remove(file_path)
+        db = self.application.db
+        sql = 'delete from files where filename="%s" and username="%s"'%(file, user)
+        db.execute(sql)
+        self.redirect("/disk")
         
 class DownloadHandler(BaseHandler):
-    def post(self):
-        pass
-        
+    def get(self,input):   
+        user = self.get_current_user()
+        file = input
+        user_path = os.path.join(UPLOADED_FILES,user)
+        file_path = os.path.join(user_path, file)
+        with open(file_path,'rb') as f:
+            while True:
+                data = f.read()
+                if not data:
+                    break
+                self.write(data)
+        self.finish()
+        self.redirect("/disk")
 '''        
 #File Action
 class FileHandler(BaseHandler):
@@ -163,6 +180,9 @@ class Application(tornado.web.Application):
             (r"/register", RegisterHandler),
             (r"/logout", LogoutHandler),
             (r"/disk", DiskHandler),
+            (r"/upload", UploadHandler),
+            (r"/download/(\w+)", DownloadHandler),
+            (r"/remove/(\w+)", RemoveHandler),
         ]
         settings = dict(
             template_path = TEMPLATE_PATH,
